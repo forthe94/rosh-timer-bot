@@ -34,6 +34,8 @@ async def stop_timer(chat, cq, match):
     if task:
         task.cancel()
         await chat.send_text('Timer stopped', reply_markup=json.dumps(inline_keyboard_markup))
+        timers_running[chat.id] = None
+
     await chat.send_text('Timer not running', reply_markup=json.dumps(inline_keyboard_markup))
 
 
@@ -57,7 +59,7 @@ async def run_timer(chat, cq, match):
     timers_running[chat.id] = task
 
     await task
-
+    timers_running[chat.id] = None
 
 @bot.default
 async def echo(chat, message):
