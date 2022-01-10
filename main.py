@@ -30,16 +30,14 @@ phrases_delays = [
 
 @bot.callback(r"stop-timer")
 async def stop_timer(chat, cq, match):
-    timers_running[chat.id] = False
-    await chat.send_text('Timer stopped', reply_markup=json.dumps(inline_keyboard_markup))
+    task = timers_running.get(chat.id)
+    if task:
+        task.cancel()
+        await chat.send_text('Timer stopped', reply_markup=json.dumps(inline_keyboard_markup))
+    await chat.send_text('Timer not running', reply_markup=json.dumps(inline_keyboard_markup))
 
 
-@bot.callback(r"start-timer")
-async def run_timer(chat, cq, match):
-    if timers_running.get(chat.id):
-        chat.send_text('Timer already running')
-        return
-    timers_running[chat.id] = True
+async def timer_task(chat):
     await chat.send_text('Timer started')
     for phraze, delay in phrases_delays:
         if timers_running[chat.id]:
@@ -48,6 +46,17 @@ async def run_timer(chat, cq, match):
         else:
             return
     await chat.send_text('Rosh is up!', reply_markup=json.dumps(inline_keyboard_markup))
+
+
+@bot.callback(r"start-timer")
+async def run_timer(chat, cq, match):
+    if timers_running.get(chat.id):
+        chat.send_text('Timer already running')
+        return
+    task = asyncio.create_task(timer_task(chat))
+    timers_running[chat.id] = task
+
+    await task
 
 
 @bot.default
