@@ -63,6 +63,7 @@ async def run_timer(chat, cq, match):
     await task
     timers_running[chat.id] = None
 
+
 @bot.default
 async def echo(chat, message):
     await chat.send_text(text='Ready to track rosh timer!', reply_markup=json.dumps(inline_keyboard_markup))
