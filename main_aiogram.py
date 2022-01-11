@@ -66,7 +66,7 @@ async def timer_task(message):
 @dp.message_handler(regexp="Start timer")
 async def run_timer(message: types.Message):
     if timers_running.get(message.chat.id):
-        await message.answer('Timer already running')
+        # await message.answer('Timer already running')
         return
     task = asyncio.create_task(timer_task(message))
     timers_running[message.chat.id] = task
@@ -80,12 +80,12 @@ async def default_message(message: types.Message):
     await message.answer('Ready to track rosh timer!', reply_markup=reply_keyboard)
 
 if __name__ == '__main__':
-    # executor.start_polling(dispatcher=dp)
+    executor.start_polling(dispatcher=dp)
 
-    executor.start_webhook(
-        dispatcher=dp,
-        skip_updates=True,
-        webhook_path='',
-        port=PORT,
-        host='0.0.0.0'
-    )
+    # executor.start_webhook(
+    #     dispatcher=dp,
+    #     skip_updates=True,
+    #     webhook_path='',
+    #     port=PORT,
+    #     host='0.0.0.0'
+    # )
