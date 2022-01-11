@@ -23,5 +23,5 @@ if __name__ == '__main__':
         skip_updates=True,
         webhook_path='',
         port=PORT,
-        host='https://rosh-timer-bot.herokuapp.com/'
+        host='localhost'
     )
