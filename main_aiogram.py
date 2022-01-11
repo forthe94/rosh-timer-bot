@@ -31,5 +31,5 @@ if __name__ == '__main__':
         skip_updates=True,
         webhook_path='',
         port=PORT,
-        host='localhost'
+        host='0.0.0.0'
     )
