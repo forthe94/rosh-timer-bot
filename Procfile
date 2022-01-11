@@ -1,1 +1,1 @@
-web: python3 main_aiogram.py --timeout 2
+web: python3 main_aiogram.py

@@ -66,7 +66,7 @@ async def timer_task(message):
 @dp.message_handler(regexp="Start timer")
 async def run_timer(message: types.Message):
     if timers_running.get(message.chat.id):
-        # await message.answer('Timer already running')
+        await message.answer('Timer already running')
         return
     task = asyncio.create_task(timer_task(message))
     timers_running[message.chat.id] = task
