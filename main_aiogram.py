@@ -27,7 +27,7 @@ async def send_welcome(message: types.Message):
 if __name__ == '__main__':
     print(PORT)
     executor.start_webhook(
-        dp,
+        dispatcher=dp,
         skip_updates=True,
         webhook_path='',
         port=PORT,
