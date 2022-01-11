@@ -69,5 +69,5 @@ async def echo(chat, message):
 
 
 if __name__ == '__main__':
-    bot.run()
-    # bot.run_webhook(webhook_url="https://rosh-timer-bot.herokuapp.com/")
+    # bot.run()
+    bot.run_webhook(webhook_url="https://rosh-timer-bot.herokuapp.com/")
