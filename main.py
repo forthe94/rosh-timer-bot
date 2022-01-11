@@ -3,8 +3,10 @@ import json
 import os
 
 from aiotg import Bot, Chat
+API_TOKEN = os.getenv('ROSH_TIMER_BOT_API_TOKEN')
+bot = Bot(api_token=API_TOKEN)
+PORT = int(os.environ.get('PORT', 5000))
 
-bot = Bot(api_token=os.getenv('ROSH_TIMER_BOT_API_TOKEN'))
 timers_running = {}
 inline_keyboard_markup = {
     'type': 'InlineKeyboardMarkup',
@@ -35,7 +37,7 @@ async def stop_timer(chat, cq, match):
         task.cancel()
         await chat.send_text('Timer stopped', reply_markup=json.dumps(inline_keyboard_markup))
         timers_running[chat.id] = None
-        return 
+        return
     await chat.send_text('Timer not running', reply_markup=json.dumps(inline_keyboard_markup))
 
 
@@ -67,4 +69,5 @@ async def echo(chat, message):
 
 
 if __name__ == '__main__':
-    bot.run()
+    # bot.run()
+    bot.run_webhook(webhook_url="https://rosh-timer-bot.herokuapp.com/" + API_TOKEN)
