@@ -21,7 +21,7 @@ if __name__ == '__main__':
     executor.start_webhook(
         dp,
         skip_updates=True,
-        webhook_path='',
+        webhook_path='https://rosh-timer-bot.herokuapp.com/',
         port=PORT,
         host='localhost'
     )
